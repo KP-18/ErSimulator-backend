@@ -7,7 +7,6 @@ const AttributeSchema = new mongoose.Schema(
       required: true,
       min: 3,
       max: 20,
-      unique: true,
     },
     dataType: {
       type: String,

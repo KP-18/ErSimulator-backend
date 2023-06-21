@@ -5,6 +5,7 @@ const router = express.Router()
 //Post Method to create new erd in data base 
 router.post('/post', async (req, res) => {
     const data = new ErDiagram({
+        name : req.body.name,
         entities : [],
         relationships : [],
     })
@@ -19,9 +20,10 @@ router.post('/post', async (req, res) => {
 });
 
 // post entites of erd with id into database
-router.post('/postOneEntity/${id}', async (req, res) => {
+router.post('/postOneEntity/:id', async (req, res) => {
+    const { id } = req.params;
     try{
-        const data = await ErDiagram.findById(req.params.id);
+        const data = await ErDiagram.findById(id);
         data.entities = req.body.entities;
         const dataToSave = await data.save();
         res.status(200).json(dataToSave)
@@ -32,9 +34,10 @@ router.post('/postOneEntity/${id}', async (req, res) => {
 });
 
 // post relations of erd with id into database
-router.post('/postOneRelation/${id}', async (req, res) => {
+router.post('/postOneRelation/:id', async (req, res) => {
+    const { id } = req.params;
     try{
-        const data = await ErDiagram.findById(req.params.id);
+        const data = await ErDiagram.findById(id);
         data.relationships = req.body.relationships;
         const dataToSave = await data.save();
         res.status(200).json(dataToSave)
@@ -57,8 +60,9 @@ router.get('/getAll', async (req, res) => {
 
 //to get one(id) erds from database
 router.get('/getOne/:id', async (req, res) => {
+    const { id } = req.params;
     try{
-        const data = await ErDiagram.findById(req.params.id);
+        const data = await ErDiagram.findById(id);
         res.status(200).json(data)
     }
     catch(error){
@@ -68,8 +72,9 @@ router.get('/getOne/:id', async (req, res) => {
 
 //to get one(id) erds' entites  from database
 router.get('/getOneEntity/:id', async (req, res) => {
+    const { id } = req.params;
     try{
-        const data = await ErDiagram.findById(req.params.id);
+        const data = await ErDiagram.findById(id);
         res.status(200).json(data)
     }
     catch(error){
@@ -79,8 +84,9 @@ router.get('/getOneEntity/:id', async (req, res) => {
 
 //to get one(id) erds' relations  from database
 router.get('/getOneRelation/:id', async (req, res) => {
+    const { id } = req.params;
     try{
-        const erd = await ErDiagram.findById(req.params.id);
+        const erd = await ErDiagram.findById(id);
         const data = erd.relationships;
         res.status(200).json(data)
     }
