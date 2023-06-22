@@ -1,53 +1,50 @@
-const mongoose = require("mongoose");
-// Attribute model
-const AttributeSchema = new mongoose.Schema(
-  {
+const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
+
+const attributeSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        default: uuidv4
+    },
     name: {
-      type: String,
-      required: true,
-      min: 3,
-      max: 20,
+        type: String,
+        required: true
     },
     dataType: {
-      type: String,
-      required: true,
+        type: String,
+        required: true
     },
     isPrimaryKey: {
-      type: Boolean,
-      default: false,
+        type: Boolean,
+        required: true
     },
-    isMultiValued: {
-      type: Boolean,
-      default: false,
+    isMultivalue: {
+        type: Boolean,
+        required: true
+    }
+});
+
+const entitySchema = new mongoose.Schema({
+    id: {
+        type: String,
+        default: uuidv4
     },
-  },
-  { timestamps: true }
-);
-
-const Attribute = mongoose.model("Attribute", AttributeSchema);
-
-// Entity model
-const EntitySchema = new mongoose.Schema(
-  {
     name: {
-      type: String,
-      required: true,
-      min: 3,
-      max: 50,
+        type: String,
+        required: true
     },
-    attributes: {
-      type: [AttributeSchema],
-      required: true,
-    },
-  },
-  { timestamps: true }
-);
+    attributes: [attributeSchema]
+});
 
-const Entity = mongoose.model("Entity", EntitySchema);
+const Entity = mongoose.model("Entity", entitySchema);
 
 // Relationship model
 const RelationshipSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      default: uuidv4
+    },
     name: {
       type: String,
       required: true,
@@ -69,7 +66,7 @@ const RelationshipSchema = new mongoose.Schema(
       required: true,
     },
     attributes: {
-      type: [AttributeSchema],
+      type: [attributeSchema],
       required: false,
     },
   });
