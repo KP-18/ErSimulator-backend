@@ -36,6 +36,7 @@ const entitySchema = new mongoose.Schema({
     attributes: [attributeSchema]
 });
 
+const Attribute = mongoose.model("Attribute", attributeSchema);
 const Entity = mongoose.model("Entity", entitySchema);
 
 // Relationship model
@@ -83,7 +84,7 @@ const erDiagramSchema = new mongoose.Schema({
     min: 3,
     max: 50,
   },
-  entities: [EntitySchema],
+  entities: [entitySchema],
   relationships: [RelationshipSchema],
 });
 
