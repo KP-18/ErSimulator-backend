@@ -24,6 +24,8 @@ router.post('/postOneEntity/:id', async (req, res) => {
     const { id } = req.params;
     try{
         const data = await ErDiagram.findById(id);
+        // console.log(data);
+        // console.log(req.body.entities);
         data.entities = req.body.entities;
         const dataToSave = await data.save();
         res.status(200).json(dataToSave)
