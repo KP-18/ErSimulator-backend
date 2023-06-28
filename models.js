@@ -8,19 +8,15 @@ const attributeSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        required: true
     },
     dataType: {
         type: String,
-        required: true
     },
     isPrimaryKey: {
         type: Boolean,
-        required: true
     },
     isMultivalue: {
         type: Boolean,
-        required: true
     }
 });
 
